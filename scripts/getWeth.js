@@ -1,4 +1,6 @@
 const { getNamedAccounts, ethers } = require("hardhat")
+const { formatWeiToEth } = require("./helpers")
+
 const AMOUNT = ethers.utils.parseEther("0.02")
 
 async function getWeth() {
@@ -13,7 +15,7 @@ async function getWeth() {
     const tx = await iWeth.deposit({ value: AMOUNT })
     tx.wait(1)
     const wethBalance = await iWeth.balanceOf(deployer)
-    console.log(`Got ${wethBalance.toString()} WETH`)
+    console.log(`Got ${formatWeiToEth(wethBalance)} WETH`)
 }
 
 module.exports = { getWeth, amount: AMOUNT }
